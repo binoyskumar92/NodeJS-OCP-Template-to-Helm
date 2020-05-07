@@ -11,7 +11,7 @@ NODEJS_VERSION: '8'
 MEMORY_LIMIT: 512Mi
 
 # Name of secret created in OpenShift to read from source repository
-GIT_SECRET: gitlab-secret-main
+GIT_SECRET: git-secret
 
 # The URL of the repository with your application source code.
 SOURCE_REPOSITORY_URL: https://gitlab.consulting.redhat.com/bsubhaku/helloworldnodeapp.git
