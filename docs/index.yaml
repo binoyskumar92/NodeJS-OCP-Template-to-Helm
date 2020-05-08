@@ -3,9 +3,9 @@ entries:
   nodeapp-build:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-05-07T18:38:51.4373365-05:00"
+    created: "2020-05-08T15:00:30.0501655-05:00"
     description: A Helm chart for Kubernetes
-    digest: b1208a0421385ba988aebf895019e830f9360b7035099baa6ef5e30bd1705b6e
+    digest: 192d11308a69b47b81e353982b8931b28d335183640906cc5ebf42d89a1922a3
     name: nodeapp-build
     type: application
     urls:
@@ -14,12 +14,12 @@ entries:
   nodeapp-deploy:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-05-07T18:38:51.4373365-05:00"
+    created: "2020-05-08T15:00:30.0501655-05:00"
     description: A Helm chart to deploy a NodeJS app
-    digest: d792955bc960977228e23611562da074f11246782db72749fe5207f1debb62c6
+    digest: c4bb1f1cb971dc1f441e3f4bdaaa7a8dfd00f9846087c46da021cf41056defbb
     name: nodeapp-deploy
     type: application
     urls:
     - nodeapp-deploy-0.1.0.tgz
     version: 0.1.0
-generated: "2020-05-07T18:38:51.4363387-05:00"
+generated: "2020-05-08T15:00:30.0491676-05:00"
