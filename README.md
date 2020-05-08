@@ -31,9 +31,18 @@ oc get all -l app=nodeapp
 ```
 
 ### Prerequisites for Helm
+
 1. Go through the prerequisites for ocp template except step 4.
 2. Make sure [Helm client](https://github.com/helm/helm/releases) v3.x.x is installed and added to your path.
-3. 
+3. Add the Helm chart repo by running below command. The [docs](docs) folder has packaged charts for build and deploy.
+```bash
+ helm repo add chartrepo https://binoyskumar92.github.io/NodeJS-OCP-Template-to-Helm/
+ ```
+ *Note: The name chartrepo can be any other name*
+ 4. Run below command to check if the repos are added successfully and it is able to access the build and deploy charts.
+ ```bash
+ helm search repo chartrepo
+ ```
 
 ### How to use the equivalent Helm version of OCP template
 
