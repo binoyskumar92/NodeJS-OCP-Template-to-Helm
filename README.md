@@ -6,8 +6,8 @@ This repo helps to build and deploy a nodejs app via an OpenShift templates and 
 
 * [Helm](https://helm.sh/) is best way to find, share, and use software built for Kubernetes. It allows describing the application structure through convenient helm-charts and managing it with simple commands.
 [OCP-Template](https://docs.openshift.com/container-platform/3.5/dev_guide/templates.html) can describe a set of objects, for example services, build configurations, and deployment configurations. These can be processed to create anything you have permission to create within a project
-* Templates are way more static compared to Helm. Helm provides values.yaml file which can be used to parameterise the entire helm chart. These values are easy to override for multiple runs use different vlaues file or using console input.
-* Helm can deal with many lifecycles methods which templates lack.
+* Templates are way more static compared to Helm. Helm provides values.yaml file which can be used to parameterize the entire helm chart. These values are easy to override for multiple runs use different values file or using console input.
+* Helm can deal with many life cycle methods which templates lack.
 * Helm can be built around a solid testing framework for making it viable for large projects.
 
 ### Prerequisites for OCP Template
@@ -39,16 +39,34 @@ oc get all -l app=nodeapp
  helm repo add chartrepo https://binoyskumar92.github.io/NodeJS-OCP-Template-to-Helm/
  ```
  *Note: The name chartrepo can be any other name*
- 4. Run below command to check if the repos are added successfully and it is able to access the build and deploy charts.
+ 4. Run below command to check if the repos are added successfully and Helm is able to access the build and deploy charts.
  ```bash
  helm search repo chartrepo
  ```
 
 ### How to use the equivalent Helm version of OCP template
 
-1. Go through the prerequisites and make sure [Helm client](https://github.com/helm/helm/releases) v3.x.x is installed.
-2. Update the [values.yaml]() for Build with your required values.
-3. Navigate to [helm/build](helm/nodeapp-build) folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the BuildConfig and an ImageStream via Helm. This will build the application source specified by source values in [/helm/build/values.yaml](/helm/nodeapp-build/values.yaml) and push to the ImageStream.
+####  Build 
+1. Update the [values.yaml](helm/nodeapp-build/values.yaml) for Build with your required values.
+2. Navigate to [helm/nodeapp-build](helm/nodeapp-build) folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the BuildConfig and an ImageStream via Helm. This will build the application source specified by source values in [/helm/nodeapp-build/values.yaml](helm/nodeapp-build/values.yaml) and push to the ImageStream.
 ```bash 
-helm upgrade --install <a-release-name> chartrepo/nodeapp-build 
+helm upgrade --install <a-release-name> chartrepo/nodeapp-build --values helm/nodeapp-build/values.yaml
 ```
+ *Note: The release-name can be any other name*
+ 3. Run below command to make sure a build pod is running
+ ```bash
+ oc get pods
+ ```
+
+ #### Deploy
+1. Update the [values.yaml](helm/nodeapp-deploy/values.yaml) for Build with your required values.
+2. Navigate to [helm/nodeapp-deploy](helm/nodeapp-deploy) folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the Deployment, Route and Service via Helm. This will pull the previously built image in previous Build step. Update values in [/helm/nodeapp-deploy/values.yaml](helm/nodeapp-deploy/values.yaml) before running below command.
+```bash 
+helm upgrade --install <a-release-name> chartrepo/nodeapp-deploy --values helm/nodeapp-deploy/values.yaml
+```
+ *Note: The release-name can be any other name*
+ 3. Run below command to get the exposed route information and run the url in your browser when it is ready to see the NodeJS application.
+ ```bash
+ oc get route -l app=<used-release-name-in-previous-step>
+ ```
+ 4. If you run into any issue always login to your cluster and check the pod logs.
