@@ -60,6 +60,7 @@ In a Helm chart the customization happens in the values.yaml used. For each run 
 | CONTEXT_DIR  | Set this to the relative path to your project if it is not in the root | nil |
 | APPLICATION_DOMAIN  | The exposed hostname that will route to the Node.js service, if left  | nil |
 | NPM_MIRROR | The custom NPM mirror URL | nil |
+| CREATE_NEW_IMAGE_STREAM | Flag to create a new ImageStream. If IS is already create set this to false. | true |
 
 
 ####  Build 
