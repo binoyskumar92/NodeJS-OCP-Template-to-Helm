@@ -48,7 +48,7 @@ oc get all -l app=nodeapp
 
 1. Go through the prerequisites and make sure [Helm client](https://github.com/helm/helm/releases) v3.x.x is installed.
 2. Update the [values.yaml]() for Build with your required values.
-3. Navigate to [helm/build](helm/build) folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the BuildConfig and an ImageStream via Helm. This will build the application source specified by source values in [/helm/build/values.yaml](/helm/build/values.yaml) and push to the ImageStream.
+3. Navigate to [helm/build](helm/nodeapp-build) folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the BuildConfig and an ImageStream via Helm. This will build the application source specified by source values in [/helm/build/values.yaml](/helm/nodeapp-build/values.yaml) and push to the ImageStream.
 ```bash 
 helm upgrade --install <a-release-name> chartrepo/nodeapp-build 
 ```
