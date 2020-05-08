@@ -52,7 +52,8 @@ oc get all -l app=nodeapp
 ```bash 
 helm upgrade --install <a-release-name> chartrepo/nodeapp-build --values helm/nodeapp-build/values.yaml
 ```
- *Note: The release-name can be any other name*
+ *Note: The release-name can be any other name.*
+ 
  3. Run below command to make sure a build pod is running
  ```bash
  oc get pods
@@ -65,7 +66,7 @@ helm upgrade --install <a-release-name> chartrepo/nodeapp-build --values helm/no
 helm upgrade --install <a-release-name> chartrepo/nodeapp-deploy --values helm/nodeapp-deploy/values.yaml
 ```
  *Note: The release-name can be any other name.*
- 
+
  3. Run below command to get the exposed route information and run the url in your browser when it is ready to see the NodeJS application.
  ```bash
  oc get route -l app=<used-release-name-in-previous-step>
