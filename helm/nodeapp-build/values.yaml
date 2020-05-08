@@ -1,14 +1,11 @@
 #The name assigned to all of the frontend objects defined in this template.
-NAME: nodeapp
+NAME_OVERRIDE: 
 
 #The OpenShift Namespace where the ImageStream resides.
 NAMESPACE: openshift
 
 # Version of NodeJS image to be used (6, 8, or latest).
 NODEJS_VERSION: '8'
-
-# Maximum amount of memory the container can use.
-MEMORY_LIMIT: 512Mi
 
 # Name of secret created in OpenShift to read from source repository
 GIT_SECRET: git-secret

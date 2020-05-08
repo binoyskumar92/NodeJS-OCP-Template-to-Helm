@@ -4,7 +4,7 @@ metadata:
   annotations:
     openshift.io/display-name: dev
   labels:
-    app: {{ .Release.Name }}
+    app: {{ default .Release.Name .Values.NAME_OVERRIDE }}
   name: repo
   namespace: dev
 spec:

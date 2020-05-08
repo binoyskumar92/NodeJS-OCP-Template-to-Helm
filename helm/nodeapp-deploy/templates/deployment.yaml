@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ default .Release.Name .Values.NAME_OVERRIDE }}
   labels: 
-    app: {{ .Release.Name }}
+    app: {{ default .Release.Name .Values.NAME_OVERRIDE }}
 spec:
   strategy:
     type: RollingUpdate
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ default .Release.Name .Values.NAME_OVERRIDE }}
   template:
     metadata:
-      name: {{ .Release.Name }}
+      name: {{ default .Release.Name .Values.NAME_OVERRIDE }}
       labels:
-        app: {{ .Release.Name }}
+        app: {{ default .Release.Name .Values.NAME_OVERRIDE }}
     spec:
       containers:
-      - name: {{ .Release.Name }}
+      - name: {{ default .Release.Name .Values.NAME_OVERRIDE }}
         image: "repo:latest"
         ports:
         - containerPort: 8080

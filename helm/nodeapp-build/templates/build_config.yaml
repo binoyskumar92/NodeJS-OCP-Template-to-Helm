@@ -1,7 +1,7 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ default .Release.Name .Values.NAME_OVERRIDE }}
   annotations:
     description: Defines how to build the application
     template.alpha.openshift.io/wait-for-ready: 'true'
