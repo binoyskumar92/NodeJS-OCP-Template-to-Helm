@@ -25,5 +25,8 @@ APPLICATION_DOMAIN: ''
 # The custom NPM mirror URL
 NPM_MIRROR: ''
 
+# If a ImageStream is created in previous build set this to false
+CREATE_NEW_IMAGE_STREAM: true
+
 
 

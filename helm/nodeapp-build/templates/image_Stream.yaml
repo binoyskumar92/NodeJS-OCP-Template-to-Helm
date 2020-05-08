@@ -1,3 +1,4 @@
+{{ if .Values.CREATE_NEW_IMAGE_STREAM }}
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
@@ -10,3 +11,4 @@ metadata:
 spec:
   lookupPolicy:
     local: true
+{{ end }}

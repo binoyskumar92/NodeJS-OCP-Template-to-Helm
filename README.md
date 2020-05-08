@@ -57,9 +57,9 @@ In a Helm chart the customization happens in the values.yaml used. For each run 
 | GIT_SECRET | Name of secret created in OpenShift to read from source repository. Check prerequisite step for details  | git-secret |
 | SOURCE_REPOSITORY_URL | The URL of the repository with your application source code. You can download this sample code from default value and host it in your personal git repo | https://gitlab.consulting.redhat.com/bsubhaku/helloworldnodeapp.git |
 | SOURCE_REPOSITORY_REF | Set this to a branch name, tag or other ref of your repository if you | master |
-| CONTEXT_DIR  | Set this to the relative path to your project if it is not in the root | '' |
-| APPLICATION_DOMAIN  | The exposed hostname that will route to the Node.js service, if left  | '' |
-| NPM_MIRROR | The custom NPM mirror URL | '' |
+| CONTEXT_DIR  | Set this to the relative path to your project if it is not in the root | nil |
+| APPLICATION_DOMAIN  | The exposed hostname that will route to the Node.js service, if left  | nil |
+| NPM_MIRROR | The custom NPM mirror URL | nil |
 
 
 ####  Build 
