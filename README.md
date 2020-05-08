@@ -48,7 +48,7 @@ oc get all -l app=nodeapp
 
 ####  Build 
 1. Update the [values.yaml](helm/nodeapp-build/values.yaml) for Build with your required values.
-2. Navigate to [helm/nodeapp-build](helm/nodeapp-build) folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the BuildConfig and an ImageStream via Helm. This will build the application source specified by source values in [/helm/nodeapp-build/values.yaml](helm/nodeapp-build/values.yaml) and push to the ImageStream.
+2. Stay in root folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the BuildConfig and an ImageStream via Helm. This will build the application source specified by source values in [/helm/nodeapp-build/values.yaml](helm/nodeapp-build/values.yaml) and push to the ImageStream.
 ```bash 
 helm upgrade --install <a-release-name> chartrepo/nodeapp-build --values helm/nodeapp-build/values.yaml
 ```
@@ -60,7 +60,7 @@ helm upgrade --install <a-release-name> chartrepo/nodeapp-build --values helm/no
 
  #### Deploy
 1. Update the [values.yaml](helm/nodeapp-deploy/values.yaml) for Build with your required values.
-2. Navigate to [helm/nodeapp-deploy](helm/nodeapp-deploy) folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the Deployment, Route and Service via Helm. This will pull the previously built image in previous Build step. Update values in [/helm/nodeapp-deploy/values.yaml](helm/nodeapp-deploy/values.yaml) before running below command.
+2. Stay in root folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the Deployment, Route and Service via Helm. This will pull the previously built image in previous Build step. Update values in [/helm/nodeapp-deploy/values.yaml](helm/nodeapp-deploy/values.yaml) before running below command.
 ```bash 
 helm upgrade --install <a-release-name> chartrepo/nodeapp-deploy --values helm/nodeapp-deploy/values.yaml
 ```
