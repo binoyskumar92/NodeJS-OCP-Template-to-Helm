@@ -55,7 +55,7 @@ objects:
         ref: "${SOURCE_REPOSITORY_REF}"
       contextDir: "${CONTEXT_DIR}"
       sourceSecret: 
-        name: "gitlab-secret-main"
+        name: "git-secret"
     strategy:
       type: Source
       sourceStrategy:
