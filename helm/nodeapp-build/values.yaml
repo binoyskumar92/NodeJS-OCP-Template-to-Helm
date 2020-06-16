@@ -28,5 +28,8 @@ NPM_MIRROR: ''
 # If a ImageStream is created in previous build set this to false
 CREATE_NEW_IMAGE_STREAM: true
 
+# Name given to the destination image stored in ImageStream 
+DEST_IMAGE_NAME: nodeapp
+
 
 

@@ -29,7 +29,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: "repo:latest"
+      name: "repo:{{ .Values.DEST_IMAGE_NAME }}"
   triggers:
   - type: ConfigChange
 status:

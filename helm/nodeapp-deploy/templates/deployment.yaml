@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: {{ default .Release.Name .Values.NAME_OVERRIDE }}
-        image: "repo:latest"
+        image: "repo:{{ .Values.SRC_IMAGE_NAME }}"
         ports:
         - containerPort: 8080
         readinessProbe:
