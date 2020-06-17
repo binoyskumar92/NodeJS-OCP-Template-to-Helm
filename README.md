@@ -2,6 +2,12 @@
 
 This repo helps you to learn how to build and deploy a NodeJS app onto an OpenShift cluster using an OpenShift templates and its equivalent Helm implementation.
 
+  *Python App Note:
+  1. Run you app at 0.0.0.0:8080 port
+  2. NPM_MIRROR env variable is set in way to identify its running in openshift and for the swagger UI to work with https scheme.
+  3. The base image used is changed to python:latest
+  4. Create the appropriate git repo secret.*
+
 ### Helm charts vs OCP template
 
 * [Helm](https://helm.sh/) is best way to find, share, and use software built for Kubernetes. It allows describing the application structure through convenient helm-charts and managing it with simple commands.
@@ -89,3 +95,6 @@ helm upgrade --install <a-release-name> chartrepo/nodeapp-deploy --values helm/n
  oc get route -l app=<used-release-name-in-previous-step>
  ```
  4. If you run into any issue always login to your cluster and check the pod logs.
+
+
+
