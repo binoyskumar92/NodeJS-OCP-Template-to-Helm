@@ -22,7 +22,7 @@ spec:
       from:
         kind: ImageStreamTag
         namespace: {{ .Values.NAMESPACE }}
-        name: "nodejs:{{ .Values.NODEJS_VERSION }}"
+        name: "python:{{ .Values.NODEJS_VERSION }}"
       env:
       - name: NPM_MIRROR
         value: {{ .Values.NPM_MIRROR }}
