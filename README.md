@@ -16,41 +16,17 @@ This repo helps you to learn how to build and deploy a NodeJS app onto an OpenSh
 * Helm charts can deal with many life cycle methods which templates lack.
 * Helm charts can be built around a solid testing framework for making it viable for large projects.
 
-### Prerequisites for OCP Template
+### Prerequisites Helm
 1. User has access to an Openshift Cluster 3.11 or 4. 
 2. User has installed [OpenShift Client Tools](https://docs.openshift.com/enterprise/3.0/cli_reference/get_started_cli.html#installing-the-cli) and has access to the cluster via ```bash oc```.
 3. First login to your OpenShift cluster via the ```oc login``` command. Make sure you have a working namespace. If not, create a new one.
-4. Update the [source information](https://github.com/binoyskumar92/NodeJS-OCP-Template-to-Helm/blob/a84a7b2a7d8d65e985843924b600867fc2cb660d/nodeapp-ocp-template.yaml#L54) in the template to point to the Nodejs app repo you would like to build and deploy
-5. Run below command to create the secret used in the template [git-secret](https://github.com/binoyskumar92/NodeJS-OCP-Template-to-Helm/blob/a47f994559ec29a97699de1ebaee5a44dce44ebb/nodeapp-ocp-template.yaml#L57) in your OpenShift namespace. This secret is needed to read/clone the source code from source repository like gitlab/github you specified above.
+4. Run below command to create the source secret in OpenShift. Generate you git passcode following [this](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). This can be generated only from your personal github repo on the fork of this project.
 ```bash
 oc create secret generic git-secret --from-literal=username=<git-username> --from-literal=password=<git-passcode/password> --type=kubernetes.io/basic-auth
 ```
-### How to run the OCP template
+5. Make sure [Helm client](https://github.com/helm/helm/releases) v3.x.x is installed and added to your path.
 
-1. Now run the following command to process the template and create it in OpenShift namespace you are currently using. 
-```bash
-oc process -f nodeapp-ocp-template.yaml | oc apply -f -
-```
-2. Run below command to make sure all resources in the template file is created
-```bash
-oc get all -l app=nodeapp
-```
-
-### Prerequisites for Helm
-
-1. Go through the prerequisites for ocp template except step 4.
-2. Make sure [Helm client](https://github.com/helm/helm/releases) v3.x.x is installed and added to your path.
-3. Add the Helm chart repo by running below command. The [docs](docs) folder has packaged charts for build and deploy.
-```bash
- helm repo add chartrepo https://binoyskumar92.github.io/NodeJS-OCP-Template-to-Helm/
- ```
- *Note: The name chartrepo can be any other name*
- 4. Run below command to check if the repos are added successfully and Helm is able to access the build and deploy charts.
- ```bash
- helm search repo chartrepo
- ```
-
-### How to use the equivalent Helm version of OCP template
+### Values file in Helm
 
 In a Helm chart the customization happens in the values.yaml used. For each run you can use a different values file. These files will hold those fields that are made dynamic in the corresponding charts. Following table gives an overview of different values you can set in values file for both build and deploy
 
@@ -58,22 +34,27 @@ In a Helm chart the customization happens in the values.yaml used. For each run 
 | ------ | ------ | ------ |
 | NAME_OVERRIDE  | Value that overrides release name for your created k8s resource in Openshift.| Helm run Release name  |
 | NAMESPACE | Namespace in which ImageStream exists  | openshift |
-| NODEJS_VERSION | Version of nodejs used | 8 |
-| MEMORY_LIMIT | Maximum amount of memory the container can use | 512Mi |
+| NODEJS_VERSION | Version of python used | latest |
 | GIT_SECRET | Name of secret created in OpenShift to read from source repository. Check prerequisite step for details  | git-secret |
-| SOURCE_REPOSITORY_URL | The URL of the repository with your application source code. You can download this sample code from default value and host it in your personal git repo | https://gitlab.consulting.redhat.com/bsubhaku/helloworldnodeapp.git |
-| SOURCE_REPOSITORY_REF | Set this to a branch name, tag or other ref of your repository if you | master |
+| SOURCE_REPOSITORY_URL | (REQUIRED) The URL of the repository with your application source code. Repo link of this project's fork in your personal git repo | https://github.com/binoyskumar92/covid-ticketing.git |
+| SOURCE_REPOSITORY_REF | (REQUIRED) Set this to a branch name, tag or other ref of your repository if you | dev-backend-code |
 | CONTEXT_DIR  | Set this to the relative path to your project if it is not in the root | nil |
 | APPLICATION_DOMAIN  | The exposed hostname that will route to the Node.js service, if left  | nil |
 | NPM_MIRROR | The custom NPM mirror URL | nil |
 | CREATE_NEW_IMAGE_STREAM | Flag to create a new ImageStream. If IS is already created set this to false. | true |
+| CREATE_NEW_IMAGE_STREAM | Flag to create a new ImageStream. If IS is already created set this to false. | true |
+| DEST_IMAGE_NAME | Name of the image that needs to be pushed to ImageStream | pythonapp |
+| MEMORY_LIMIT | Maximum amount of memory the container can use | 512Mi |
+| SRC_IMAGE_NAME | Name of the image that needs to be pulled from ImageStream for deployment | pythonapp |
 
+> Note: If you face any error regarding a duplicate ImageStream, set ```CREATE_NEW_IMAGE_STREAM``` to false in [/helm/nodeapp-build/values.yaml](helm/nodeapp-build/values.yaml) file
+> Note: ```NODEJS_VERSION``` is actually the python version
 
-####  Build 
+#### How to Build  
 1. Update the [values.yaml](helm/nodeapp-build/values.yaml) for Build with your required values.
 2. Stay in root folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the BuildConfig and an ImageStream via Helm. This will build the application source specified by source values in [/helm/nodeapp-build/values.yaml](helm/nodeapp-build/values.yaml) and push to the ImageStream.
 ```bash 
-helm upgrade --install <a-release-name> chartrepo/nodeapp-build --values helm/nodeapp-build/values.yaml
+helm upgrade --install <a-release-name> helm/nodeapp-build --values helm/nodeapp-build/values.yaml
 ```
  > Note: The release-name can be any other name.
  
@@ -82,11 +63,11 @@ helm upgrade --install <a-release-name> chartrepo/nodeapp-build --values helm/no
  oc get pods
  ```
 
- #### Deploy
+ #### How to Deploy
 1. Update the [values.yaml](helm/nodeapp-deploy/values.yaml) for Deploy  with your required values.
 2. Stay in root folder. If logged in to the OpenShift cluster via ```oc```, run the following command to create the Deployment, Route and Service via Helm. This will pull the previously built image in previous Build step. Update values in [/helm/nodeapp-deploy/values.yaml](helm/nodeapp-deploy/values.yaml) before running below command.
 ```bash 
-helm upgrade --install <a-release-name> chartrepo/nodeapp-deploy --values helm/nodeapp-deploy/values.yaml
+helm upgrade --install <a-release-name> helm/nodeapp-deploy --values helm/nodeapp-deploy/values.yaml
 ```
 > Note: The release-name can be any other name.
 
