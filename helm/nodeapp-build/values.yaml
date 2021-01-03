@@ -1,11 +1,8 @@
 #The name assigned to all of the frontend objects defined in this template.
-NAME_OVERRIDE: 
-
-#The OpenShift Namespace where the ImageStream resides.
-NAMESPACE: openshift
+NAME_OVERRIDE:
 
 # Version of NodeJS image to be used (6, 8, or latest).
-NODEJS_VERSION: '8'
+NODEJS_VERSION: "latest"
 
 # Name of secret created in OpenShift to read from source repository
 GIT_SECRET: git-secret
@@ -17,19 +14,16 @@ SOURCE_REPOSITORY_URL: https://gitlab.consulting.redhat.com/bsubhaku/helloworldn
 SOURCE_REPOSITORY_REF: master
 
 # Set this to the relative path to your project if it is not in the root
-CONTEXT_DIR: ''
+CONTEXT_DIR: ""
 
 # The exposed hostname that will route to the Node.js service, if left
-APPLICATION_DOMAIN: ''
+APPLICATION_DOMAIN: ""
 
 # The custom NPM mirror URL
-NPM_MIRROR: ''
+NPM_MIRROR: ""
 
 # If a ImageStream is created in previous build set this to false
 CREATE_NEW_IMAGE_STREAM: true
 
-# Name given to the destination image stored in ImageStream 
+# Name given to the destination image stored in ImageStream
 DEST_IMAGE_NAME: nodeapp
-
-
-

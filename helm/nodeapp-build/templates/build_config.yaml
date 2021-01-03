@@ -1,7 +1,7 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: {{ default .Release.Name .Values.NAME_OVERRIDE }}
+  name: {{ .Release.Name }}
   annotations:
     description: Defines how to build the application
     template.alpha.openshift.io/wait-for-ready: 'true'
@@ -21,7 +21,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        namespace: {{ .Values.NAMESPACE }}
+        namespace: openshift
         name: "nodejs:{{ .Values.NODEJS_VERSION }}"
       env:
       - name: NPM_MIRROR
@@ -29,7 +29,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: "repo:{{ .Values.DEST_IMAGE_NAME }}"
+      name: "repo:nodeapp"
   triggers:
   - type: ConfigChange
 status:
